@@ -1,0 +1,42 @@
+{
+  "nodes": {
+    "search_results": {
+      "variant_0": {
+        "inputs": {
+          "ai_search_results": []
+        }
+      }
+    },
+    "openai_best_image": {
+      "variant_0": {
+        "inputs": {
+          "search_results": []
+        }
+      }
+    },
+    "mistral_prompt": {
+      "variant_0": {
+        "inputs": {
+          "description": [],
+          "search_results": []
+        }
+      }
+    },
+    "best_image_mistral": {
+      "variant_0": {
+        "inputs": {
+          "prompt": []
+        }
+      }
+    },
+    "collect_results": {
+      "variant_0": {
+        "inputs": {
+          "image_json": [],
+          "openai_image_json": [],
+          "mistral_image_json": []
+        }
+      }
+    }
+  }
+}

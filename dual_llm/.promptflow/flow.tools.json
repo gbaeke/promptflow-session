@@ -1,0 +1,314 @@
+{
+  "package": {
+    "promptflow_vectordb.tool.vector_db_lookup.VectorDBLookup.search": {
+      "name": "Vector DB Lookup",
+      "description": "Search vector based query from existing Vector Database.",
+      "type": "python",
+      "module": "promptflow_vectordb.tool.vector_db_lookup",
+      "class_name": "VectorDBLookup",
+      "function": "search",
+      "inputs": {
+        "connection": {
+          "type": [
+            "CognitiveSearchConnection",
+            "QdrantConnection",
+            "WeaviateConnection"
+          ]
+        },
+        "index_name": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "CognitiveSearchConnection"
+          ]
+        },
+        "collection_name": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "QdrantConnection"
+          ]
+        },
+        "class_name": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "WeaviateConnection"
+          ]
+        },
+        "text_field": {
+          "default": null,
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "CognitiveSearchConnection",
+            "QdrantConnection",
+            "WeaviateConnection"
+          ]
+        },
+        "vector_field": {
+          "default": null,
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "CognitiveSearchConnection"
+          ]
+        },
+        "search_params": {
+          "default": null,
+          "type": [
+            "object"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "CognitiveSearchConnection",
+            "QdrantConnection"
+          ]
+        },
+        "search_filters": {
+          "default": null,
+          "type": [
+            "object"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "CognitiveSearchConnection",
+            "QdrantConnection"
+          ]
+        },
+        "vector": {
+          "type": [
+            "list"
+          ]
+        },
+        "top_k": {
+          "default": "3",
+          "type": [
+            "int"
+          ]
+        }
+      },
+      "package": "promptflow-vectordb",
+      "package_version": "0.1.2"
+    },
+    "promptflow.tools.embedding.embedding": {
+      "name": "Embedding",
+      "description": "Use Open AI's embedding model to create an embedding vector representing the input text.",
+      "type": "python",
+      "module": "promptflow.tools.embedding",
+      "function": "embedding",
+      "inputs": {
+        "connection": {
+          "type": [
+            "AzureOpenAIConnection",
+            "OpenAIConnection"
+          ]
+        },
+        "deployment_name": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "AzureOpenAIConnection"
+          ],
+          "capabilities": {
+            "completion": false,
+            "chat_completion": false,
+            "embeddings": true
+          },
+          "model_list": [
+            "text-embedding-ada-002",
+            "text-search-ada-doc-001",
+            "text-search-ada-query-001"
+          ]
+        },
+        "model": {
+          "type": [
+            "string"
+          ],
+          "enabled_by": "connection",
+          "enabled_by_type": [
+            "OpenAIConnection"
+          ],
+          "enum": [
+            "text-embedding-ada-002",
+            "text-search-ada-doc-001",
+            "text-search-ada-query-001"
+          ],
+          "allow_manual_entry": true
+        },
+        "input": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "package": "promptflow-tools",
+      "package_version": "1.2.0"
+    }
+  },
+  "code": {
+    "best_image.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "description": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_results": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "best_image.jinja2"
+    },
+    "get_image.py": {
+      "type": "python",
+      "inputs": {
+        "image_json": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "get_image.py",
+      "function": "my_python_tool"
+    },
+    "get_url.py": {
+      "type": "python",
+      "inputs": {
+        "image_json": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "get_url.py",
+      "function": "get_url"
+    },
+    "search_results.py": {
+      "type": "python",
+      "inputs": {
+        "ai_search_results": {
+          "type": [
+            "list"
+          ]
+        }
+      },
+      "source": "search_results.py",
+      "function": "search_results"
+    },
+    "best_image_groq.py": {
+      "type": "python",
+      "inputs": {
+        "prompt": {
+          "type": [
+            "string"
+          ]
+        },
+        "groq": {
+          "type": [
+            "CustomConnection"
+          ]
+        }
+      },
+      "source": "best_image_groq.py",
+      "function": "best_image"
+    },
+    "groq_prompt.jinja2": {
+      "type": "prompt",
+      "inputs": {
+        "description": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_results": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "groq_prompt.jinja2"
+    },
+    "mistral_prompt": {
+      "type": "prompt",
+      "inputs": {
+        "description": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_results": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "mistral_prompt"
+    },
+    "best_image_mistral.py": {
+      "type": "python",
+      "inputs": {
+        "prompt": {
+          "type": [
+            "string"
+          ]
+        },
+        "mistral": {
+          "type": [
+            "CustomConnection"
+          ]
+        }
+      },
+      "source": "best_image_mistral.py",
+      "function": "best_image"
+    },
+    "collect_results.py": {
+      "type": "python",
+      "inputs": {
+        "openai_image_json": {
+          "type": [
+            "string"
+          ]
+        },
+        "mistral_image_json": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "collect_results.py",
+      "function": "collect_results"
+    },
+    "mistral_prompt.jinja2": {
+      "type": "prompt",
+      "inputs": {
+        "description": {
+          "type": [
+            "string"
+          ]
+        },
+        "search_results": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "mistral_prompt.jinja2"
+    }
+  }
+}

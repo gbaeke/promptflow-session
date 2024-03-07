@@ -1,0 +1,106 @@
+id: template_standard_flow
+name: Template Standard Flow
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  description:
+    type: string
+    is_chat_input: false
+    default: walrus
+  engine:
+    type: string
+    default: mistral
+outputs:
+  results:
+    type: string
+    reference: ${collect_results.output}
+  search_results:
+    type: string
+    reference: ${aisearch.output}
+nodes:
+- name: embedding
+  type: python
+  source:
+    type: package
+    tool: promptflow.tools.embedding.embedding
+  inputs:
+    connection: open_ai_connection
+    deployment_name: embedding
+    input: ${inputs.description}
+  use_variants: false
+- name: aisearch
+  type: python
+  source:
+    type: package
+    tool: promptflow_vectordb.tool.vector_db_lookup.VectorDBLookup.search
+  inputs:
+    connection: acs-geba
+    index_name: images-sdk
+    search_filters: {}
+    search_params:
+      select: name, description, url
+    text_field: ""
+    vector_field: textVector
+    top_k: 3
+    vector: ${embedding.output}
+  use_variants: false
+- name: openai_best_image
+  type: llm
+  source:
+    type: code
+    path: best_image.jinja2
+  inputs:
+    temperature: 0
+    top_p: 1
+    max_tokens: 500
+    response_format:
+      type: json_object
+    presence_penalty: 0
+    frequency_penalty: 0
+    description: ${inputs.description}
+    search_results: ${search_results.output}
+    model: llama2
+    deployment_name: gpt-4
+  connection: open_ai_connection
+  api: chat
+  use_variants: false
+  activate:
+    when: ${inputs.engine}
+    is: openai
+- name: search_results
+  type: python
+  source:
+    type: code
+    path: search_results.py
+  inputs:
+    ai_search_results: ${aisearch.output}
+- name: best_image_mistral
+  type: python
+  source:
+    type: code
+    path: best_image_mistral.py
+  inputs:
+    prompt: ${mistral_prompt.output}
+    mistral: mistral_large
+  activate:
+    when: ${inputs.engine}
+    is: mistral
+- name: mistral_prompt
+  type: prompt
+  source:
+    type: code
+    path: mistral_prompt.jinja2
+  inputs:
+    description: ${inputs.description}
+    search_results: ${search_results.output}
+  activate:
+    when: ${inputs.engine}
+    is: mistral
+- name: collect_results
+  type: python
+  source:
+    type: code
+    path: collect_results.py
+  inputs:
+    openai_image_json: ${openai_best_image.output}
+    mistral_image_json: ${best_image_mistral.output}

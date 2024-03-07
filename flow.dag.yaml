@@ -1,0 +1,88 @@
+id: template_standard_flow
+name: Template Standard Flow
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  description:
+    type: string
+    is_chat_input: false
+    default: fierce feline hunter
+outputs:
+  data:
+    type: string
+    reference: ${get_image.output}
+  url:
+    type: string
+    reference: ${get_url.output}
+  search_results:
+    type: string
+    reference: ${aisearch.output}
+nodes:
+- name: embedding
+  type: python
+  source:
+    type: package
+    tool: promptflow.tools.embedding.embedding
+  inputs:
+    connection: open_ai_connection
+    deployment_name: embedding
+    input: ${inputs.description}
+  use_variants: false
+- name: aisearch
+  type: python
+  source:
+    type: package
+    tool: promptflow_vectordb.tool.vector_db_lookup.VectorDBLookup.search
+  inputs:
+    connection: acs-geba
+    index_name: images-sdk
+    search_filters: {}
+    search_params:
+      select: name, description, url
+    text_field: ""
+    vector_field: textVector
+    top_k: 2
+    vector: ${embedding.output}
+  use_variants: false
+- name: best_image
+  type: llm
+  source:
+    type: code
+    path: best_image.jinja2
+  inputs:
+    temperature: 0
+    top_p: 1
+    max_tokens: 500
+    response_format:
+      type: json_object
+    presence_penalty: 0
+    frequency_penalty: 0
+    description: ${inputs.description}
+    search_results: ${search_results.output}
+    model: llama2
+    deployment_name: gpt-35-turbo-1106
+  connection: open_ai_connection
+  api: chat
+  use_variants: false
+- name: get_image
+  type: python
+  source:
+    type: code
+    path: get_image.py
+  inputs:
+    image_json: ${best_image.output}
+  use_variants: false
+- name: get_url
+  type: python
+  source:
+    type: code
+    path: get_url.py
+  inputs:
+    image_json: ${best_image.output}
+- name: search_results
+  type: python
+  source:
+    type: code
+    path: search_results.py
+  inputs:
+    ai_search_results: ${aisearch.output}

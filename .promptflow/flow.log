@@ -1,0 +1,14 @@
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Start executing nodes in thread pool mode.
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Start to run 6 nodes with concurrency level 16.
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Executing node embedding. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_embedding_0
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Node embedding completes.
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Executing node aisearch. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_aisearch_0
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Node aisearch completes.
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Executing node search_results. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_search_results_0
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Node search_results completes.
+2024-02-24 13:47:26 +0100   97055 execution.flow     INFO     Executing node best_image. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_best_image_0
+2024-02-24 13:47:27 +0100   97055 execution.flow     INFO     Node best_image completes.
+2024-02-24 13:47:27 +0100   97055 execution.flow     INFO     Executing node get_image. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_get_image_0
+2024-02-24 13:47:27 +0100   97055 execution.flow     INFO     Executing node get_url. node run id: 3b4d7227-4140-4336-829e-c841f16a7c11_get_url_0
+2024-02-24 13:47:27 +0100   97055 execution.flow     INFO     Node get_url completes.
+2024-02-24 13:47:27 +0100   97055 execution.flow     INFO     Node get_image completes.

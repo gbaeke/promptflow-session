@@ -1,0 +1,18 @@
+{
+  "nodes": {
+    "get_url": {
+      "variant_0": {
+        "inputs": {
+          "image_json": []
+        }
+      }
+    },
+    "embedding": {
+      "variant_0": {
+        "inputs": {
+          "input": []
+        }
+      }
+    }
+  }
+}

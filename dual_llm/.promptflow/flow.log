@@ -1,0 +1,20 @@
+2024-03-07 12:33:46 +0100   44190 execution.flow     INFO     Start executing nodes in thread pool mode.
+2024-03-07 12:33:46 +0100   44190 execution.flow     INFO     Start to run 7 nodes with concurrency level 16.
+2024-03-07 12:33:46 +0100   44190 execution.flow     INFO     Executing node embedding. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_embedding_0
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Node embedding completes.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Executing node aisearch. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_aisearch_0
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Node aisearch completes.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Executing node search_results. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_search_results_0
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Node search_results completes.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     The node 'openai_best_image' will be bypassed because the activate condition is not met, i.e. '${flow.engine}' is not equal to 'openai'.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     The node 'mistral_prompt' will be executed because the activate condition is met, i.e. '${flow.engine}' is equal to 'mistral'.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Bypassing node openai_best_image. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_openai_best_image_0
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     The node 'mistral_prompt' will be executed because the activate condition is met, i.e. '${flow.engine}' is equal to 'mistral'.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Executing node mistral_prompt. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_mistral_prompt_0
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Node mistral_prompt completes.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     The node 'best_image_mistral' will be executed because the activate condition is met, i.e. '${flow.engine}' is equal to 'mistral'.
+2024-03-07 12:33:47 +0100   44190 execution.flow     INFO     Executing node best_image_mistral. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_best_image_mistral_0
+2024-03-07 12:33:49 +0100   44190 execution.flow     INFO     Node best_image_mistral completes.
+2024-03-07 12:33:49 +0100   44190 execution.flow     WARNING  The node 'openai_best_image' referenced by the input 'openai_image_json' of the current node 'collect_results' has been bypassed, and no default value is set. Will use 'None' as the value for this input.
+2024-03-07 12:33:49 +0100   44190 execution.flow     INFO     Executing node collect_results. node run id: a1674f0d-ba8a-47cd-be38-81ddd710dc71_collect_results_0
+2024-03-07 12:33:50 +0100   44190 execution.flow     INFO     Node collect_results completes.

@@ -1,0 +1,116 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  description:
+    type: string
+    default: man with hat
+  result:
+    type: string
+outputs:
+  results:
+    type: string
+    reference: ${line_process.output}
+nodes:
+- name: line_process
+  type: python
+  source:
+    type: code
+    path: line_process.py
+  inputs:
+    prediction: ${inputs.result}
+    url: ${geturl.output}
+- name: aggregate
+  type: python
+  source:
+    type: code
+    path: aggregate.py
+  inputs:
+    processed_results: ${line_process.output}
+  aggregation: true
+- name: embedding
+  type: python
+  source:
+    type: package
+    tool: promptflow.tools.embedding.embedding
+  inputs:
+    connection: open_ai_connection
+    deployment_name: embedding
+    input: ${inputs.description}
+- name: lookup
+  type: python
+  source:
+    type: package
+    tool: promptflow_vectordb.tool.vector_db_lookup.VectorDBLookup.search
+  inputs:
+    connection: acs-geba
+    index_name: images-sdk
+    text_field: description
+    vector_field: textVector
+    search_params:
+      select: name,description, url
+    search_filters: {}
+    vector: ${embedding.output}
+    top_k: 2
+- name: geturl
+  use_variants: true
+- name: search_results
+  type: python
+  source:
+    type: code
+    path: search_results.py
+  inputs:
+    ai_search_results: ${lookup.output}
+node_variants:
+  geturl:
+    default_variant_id: variant_2
+    variants:
+      variant_0:
+        node:
+          type: llm
+          source:
+            type: code
+            path: geturl.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-1106
+            temperature: 0
+            max_tokens: 256
+            response_format:
+              type: json_object
+            description: ${inputs.description}
+            search_results: ${search_results.output}
+            model: gemma:2b
+          connection: open_ai_connection
+          api: chat
+      variant_1:
+        node:
+          type: llm
+          source:
+            type: code
+            path: geturl_variant_1.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-1106
+            temperature: 0
+            max_tokens: 256
+            response_format:
+              type: json_object
+            description: ${inputs.description}
+            search_results: ${search_results.output}
+          connection: open_ai_connection
+          api: chat
+      variant_2:
+        node:
+          type: llm
+          source:
+            type: code
+            path: geturl_variant_2.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-1106
+            temperature: 0
+            max_tokens: 256
+            response_format:
+              type: json_object
+            description: ${inputs.description}
+            search_results: ${search_results.output}
+          connection: open_ai_connection
+          api: chat

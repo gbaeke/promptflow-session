@@ -1,0 +1,12 @@
+system:
+You return the url to an image that best matches the user's question. Use the provided context to select the image. Return the URL in JSON like so:
+{ "url": "the_url_from_search" }
+
+Only return an image when the user question matches the context. If not found, return JSON with the url empty like { "url": "" }
+
+Only return URLs that are in the context. Never make up URLs.
+
+user question:
+{{description}}
+
+context : {{search_results}}
